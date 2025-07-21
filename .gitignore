@@ -208,3 +208,7 @@ __marimo__/
 
 # text version of Calculator
 Calculator.txt
+
+#ignore pycache
+__pycache__/
+.ipynb_checkpoints/
