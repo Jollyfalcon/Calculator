@@ -8,10 +8,8 @@
 #user input for expression as a string
 #parse out numbers and operators from the input into a list
 #perform calculations on the list using PEMDAS and return a single value 
-#to implement - comprehensive testing suite using pytest and parametization 
 #to implement - error handling for multiple operators in a row
 #to implement - convert all print errors to raising errors and try-except blocks for functions
-#to implement - GUI and buttons
 #to implement - GUI error outputs at bottom
 #to implement - after GUI, some sort of memory - maybe save to a text file to read back?
 
@@ -110,7 +108,7 @@ def add_subtract(express_list):
 def merge_negatives(express_list,all_operators_set):
     """walk through list and check all "-" characters for being a subtraction operator or a negative sign 
     return smaller list with all identified negative signs incorporated with its associated value"""
-    print('merge_negatives list',express_list)
+    #print('merge_negatives list',express_list)
     i=0
     negative_val=0.0
     while i<len(express_list)-1:
@@ -173,13 +171,22 @@ def calculator_main(user_input):
     
     #convert all negative signs to negative numbers, leaving subtraction symbols
     output_list = merge_negatives(output_list,operator_set|{'(',')'}) 
-    print(f'List after negatives are merged: {output_list}')
+    #print(f'List after negatives are merged: {output_list}')
     #Error code checking before doing calculations
-    #check for characters outside the scope of the calculator in user input 
+    #check for characters outside the scope of the calculator in user input
     for item in user_input:
-        if item not in all_character_set:
+        print(item)
+        if isinstance(item,str) and item not in all_character_set:
             print('WARNING: Unexpected character, calculation may be incorrect.')
-            break
+            break 
+    #check for consecutive operators
+    for i, item in enumerate(output_list):
+        if i>0:
+            prev_item = output_list[i-1]
+            #print(f"item: {item} prev_item:{prev_item}")
+            if item in operator_set and prev_item in operator_set:
+                print('ERROR: Consecutive operators.')
+                return
     #check for equal brackets
     if output_list.count(')')!=output_list.count('('):
         print("ERROR: unequal parenthesis.")
