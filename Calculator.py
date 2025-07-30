@@ -16,6 +16,8 @@
 #import regular expressions
 import re
 
+error_out=''
+
 def exponent(express_list):
     """walk through list and perform all exponent operations
     return smaller list with all values and operators replaced with
@@ -46,6 +48,7 @@ def multi_divide(express_list):
     unified value of each operation"""
     # print('mult_div list',express_list)
     i=0
+    global error_out
     while i<=len(express_list)-1:
         #multiplication 
         if express_list[i]=="*" or express_list[i]== '*':
@@ -63,7 +66,7 @@ def multi_divide(express_list):
             try:
                 express_list[i]=first_val/second_val
             except ZeroDivisionError:
-                print('ERROR: Division by Zero.')
+                error_out='ERROR: Division by Zero.'
                 break
         #if no operation happens, continue loop on the next index
         else:
@@ -154,11 +157,14 @@ def parenth_list(express_list,parenth_l,parenth_r):
     return express_list
 
 def calculator_main(user_input):
-    #call for user input
-    #user_input = input('Provide the expression you wish to calculate:\nUsable operators are + , - , * , / , ^, ( , )\n--->')
-    #pull out all numbers, numbers with decimals, and "*","+","-","/","^","(",")" operators and put them in an ordered list
+    '''call for user input
+    user_input = input('Provide the expression you wish to calculate:\nUsable operators are + , - , * , / , ^, ( , )\n--->')
+    pull out all numbers, numbers with decimals, and "*","+","-","/","^","(",")" operators and put them in an ordered list'''
+    global error_out
+    error_out=''
     output_list = re.findall(r'\d+\.?\d*|\d*\.?\d+|[()*/+-^]',user_input)
     #print(f'list:{output_list} length of list: {len(output_list)}')
+
     #loop through list for further manipulation
     for i in range(0,len(output_list)):
         #convert all numbers in the list from strings to float
@@ -175,9 +181,9 @@ def calculator_main(user_input):
     #Error code checking before doing calculations
     #check for characters outside the scope of the calculator in user input
     for item in user_input:
-        print(item)
+        #print(item)
         if isinstance(item,str) and item not in all_character_set:
-            print('WARNING: Unexpected character, calculation may be incorrect.')
+            error_out='WARNING: Unexpected character, calculation may be incorrect.'
             break 
     #check for consecutive operators
     for i, item in enumerate(output_list):
@@ -185,18 +191,18 @@ def calculator_main(user_input):
             prev_item = output_list[i-1]
             #print(f"item: {item} prev_item:{prev_item}")
             if item in operator_set and prev_item in operator_set:
-                print('ERROR: Consecutive operators.')
-                return
+                error_out='ERROR: Consecutive operators.'
+                #return error_out
     #check for equal brackets
     if output_list.count(')')!=output_list.count('('):
-        print("ERROR: unequal parenthesis.")
+        error_out="ERROR: Unequal parenthesis."
     #check for something to calculate in the list 
     elif len(output_list)<1:
-        print("ERROR: Nothing to calculate.")
+        error_out="ERROR: Nothing to calculate."
     #check for operators at beginning or end besides parentheses and throw an error 
     elif output_list[0] in operator_set or output_list[len(output_list)-1] in operator_set: 
-        print("ERROR: Operator at beginning or end of expression.")
-    else:
+        error_out="ERROR: Invalid operator at start or end."
+    if not error_out.startswith('ERROR:'):
         #find first right bracket and then its associated left bracket
         #perform calculation on the resulting slice 
         output_list_rev_slice=[]
@@ -209,21 +215,29 @@ def calculator_main(user_input):
             try:
                 parenth_index_l=parenth_index_r-output_list_rev_slice.index('(')-1
             except ValueError:
-                print('ValueError in finding parenthesis: make sure your parentheses are properly paired.')
+                error_out='ERROR: Inproperly paired parenthesis.'
                 break
             else: 
                 output_list = parenth_list(output_list,parenth_index_l,parenth_index_r)
         output_list = add_subtract(multi_divide(exponent(output_list)))
         if len(output_list)==1:
             print("The answer is: ",float(output_list[0]))
-            return output_list[0]
+            output_txt=''.join(map(str,output_list))
+            return (output_txt, error_out)
         else:
-            print("ERROR: The answer could not be fully calculated. Please review your input.")
-            return output_list
+            #print("ERROR: The answer could not be fully calculated. Please review your input.")
+            print(error_out)
+            output_txt=''.join(map(str,output_list))
+            return (output_txt, error_out)
+    else:
+        output_txt=''.join(map(str,output_list))
+        return (output_txt, error_out)
+    
 if __name__ == "__main__": 
     user_input_calc = input('Provide the expression you wish to calculate:\nUsable operators are + , - , * , / , ^, ( , )\n--->')
-    out=calculator_main(user_input_calc)
-    #print(out)
+    out,error=calculator_main(user_input_calc)
+    print(out)
+    print(error)
 
 
 # In[ ]:
