@@ -183,7 +183,7 @@ def calculator_main(user_input):
     for item in user_input:
         #print(item)
         if isinstance(item,str) and item not in all_character_set:
-            error_out='WARNING: Unexpected character, calculation may be incorrect.'
+            error_out='ERROR: Unexpected characters.'
             break 
     #check for consecutive operators
     for i, item in enumerate(output_list):
@@ -230,7 +230,7 @@ def calculator_main(user_input):
             output_txt=output_clean_convert(output_list)
             return (output_txt, error_out)
     else:
-        output_txt=output_clean_convert(output_list)
+        output_txt=user_input#output_clean_convert(output_list)
         return (output_txt, error_out)
     
 def output_clean_convert(output_list):
