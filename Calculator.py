@@ -221,12 +221,12 @@ def calculator_main(user_input):
                 output_list = parenth_list(output_list,parenth_index_l,parenth_index_r)
         output_list = add_subtract(multi_divide(exponent(output_list)))
         if len(output_list)==1:
-            print("The answer is: ",float(output_list[0]))
+            #print("The answer is: ",float(output_list[0]))
             output_txt=output_clean_convert(output_list)
             return (output_txt, error_out)
         else:
             #print("ERROR: The answer could not be fully calculated. Please review your input.")
-            print(error_out)
+            #print(error_out)
             output_txt=output_clean_convert(output_list)
             return (output_txt, error_out)
     else:
@@ -246,8 +246,8 @@ def output_clean_convert(output_list):
 if __name__ == "__main__": 
     user_input_calc = input('Provide the expression you wish to calculate:\nUsable operators are + , - , * , / , ^, ( , )\n--->')
     out,error=calculator_main(user_input_calc)
-    print(out)
-    print(error)
+    #print(out)
+    #print(error)
 
 
 # In[ ]:

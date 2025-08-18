@@ -37,6 +37,7 @@ from Calculator import calculator_main
     ("(2+3", ("(2+3", "ERROR: Unequal parenthesis.")),
     ("2+abc3", ("2+abc3", 'ERROR: Unexpected characters.')),
     ("--2--3", ("--2--3", "ERROR: Invalid operator at start or end.")),
+    (")2+3(", (")5(", "ERROR: Inproperly paired parenthesis.")),
 ])
 def test_valid_expressions(expression, expected):
     assert calculator_main(expression) == expected
