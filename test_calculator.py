@@ -35,7 +35,7 @@ from Calculator import calculator_main
     ("3/0", ("3/0", "ERROR: Division by Zero.")),
     ("2++3", ("2++3", "ERROR: Consecutive operators.")),
     ("(2+3", ("(2+3", "ERROR: Unequal parenthesis.")),
-    ("2+abc3", ("5", "WARNING: Unexpected character, calculation may be incorrect.")),
+    ("2+abc3", ("2+abc3", 'ERROR: Unexpected characters.')),
     ("--2--3", ("--2--3", "ERROR: Invalid operator at start or end.")),
 ])
 def test_valid_expressions(expression, expected):
