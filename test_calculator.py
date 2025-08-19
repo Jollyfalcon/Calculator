@@ -42,18 +42,6 @@ from Calculator import calculator_main
 def test_valid_expressions(expression, expected):
     assert calculator_main(expression) == expected
 
-# @pytest.mark.parametrize("expression, error_msg", [
-#     ("3/0", ("3.0/0.0", "ERROR: Division by Zero")),
-#     ("2++3", ("2.0++3.0", "ERROR: Consecutive operators")),
-#     ("(2+3", ("(2.0+3.0)", "ERROR: unequal parenthesis")),
-#     ("abc", ("abc", "WARNING: Unexpected character")),
-#     ("--2--3", ("--2--3", "ERROR: Operator at beginning or end")),
-# ])
-# def test_error_cases(expression, error_msg, capsys):
-#     calculator_main(expression)
-#     captured = capsys.readouterr()
-#     assert error_msg in captured.out
-
 def test_merge_negatives():
     # Test negative number handling
     assert calculator_main("-5") == ("-5","")
