@@ -25,7 +25,14 @@ def main():
         )
     for row_index, row_value in enumerate(button_list): 
         for column_index, column_value in enumerate(row_value):
-            button = tk.Button(root, text=column_value,font=('Times New Roman',16),width=4,height=2,command=lambda x=column_value: character_click(x))
+            button = tk.Button(
+                root, 
+                text=column_value,
+                font=('Times New Roman',16),
+                width=4,
+                height=2,
+                command=lambda x=column_value: character_click(x)
+                )
             button.grid(column = column_index, row = row_index+1, padx = 3, pady = 3)
 
     #define set to be used for button press logic

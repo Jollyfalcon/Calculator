@@ -154,7 +154,6 @@ def calculator_main(user_input):
     error_out=''
     user_input_no_whitespace = re.sub(r'\s+', '', user_input)
     output_list = re.findall(r'\d+\.?\d*|\d*\.?\d+|[()*/+-^]',user_input_no_whitespace)
-    print(output_list)
 
     #loop through list for further manipulation
     for i in range(0,len(output_list)):
@@ -162,7 +161,6 @@ def calculator_main(user_input):
         if re.search(r'\d+\.?\d*|\d*\.?\d+',output_list[i]):
             output_list[i]=float(output_list[i])
             
-    print(output_list)
     #sets of operators and all characters for error checking and handling negative numbers
     operator_set = {'*','/','+','-','^'}
     all_character_set = {'0','1','2','3','4','5','6','7','8','9',' ','(',')','.'}|operator_set
@@ -238,6 +236,7 @@ def output_clean_convert(output_list):
 if __name__ == "__main__": 
     user_input_calc = input('Provide the expression you wish to calculate:\nUsable operators are + , - , * , / , ^, ( , )\n--->')
     out,error=calculator_main(user_input_calc)
+    print(f'Results: {out}\nError: {error}')
 
 
 # In[ ]:
