@@ -8,9 +8,6 @@
 #user input for expression as a string
 #parse out numbers and operators from the input into a list
 #perform calculations on the list using PEMDAS and return a single value 
-#to implement - error handling for multiple operators in a row
-#to implement - convert all print errors to raising errors and try-except blocks for functions
-#to implement - GUI error outputs at bottom
 #to implement - after GUI, some sort of memory - maybe save to a text file to read back?
 
 #import regular expressions
@@ -22,7 +19,6 @@ def exponent(express_list):
     """walk through list and perform all exponent operations
     return smaller list with all values and operators replaced with
     unified value of each operation"""
-    # print('mult_div list',express_list)
     i=0
     while i<=len(express_list)-1:
         #exponent 
@@ -46,7 +42,6 @@ def multi_divide(express_list):
     """walk through list and perform all multiplication and division operations
     return smaller list with all values and operators replaced with
     unified value of each operation"""
-    # print('mult_div list',express_list)
     i=0
     global error_out
     while i<=len(express_list)-1:
@@ -82,7 +77,6 @@ def add_subtract(express_list):
     """walk through list and perform all addition and subtraction operations
     return smaller list with all values and operators replaced with
     unified value of each operation"""
-    # print('add_sub list',express_list)
     i=0
     while i<=len(express_list)-1:
         #addition 
@@ -111,7 +105,6 @@ def add_subtract(express_list):
 def merge_negatives(express_list,all_operators_set):
     """walk through list and check all "-" characters for being a subtraction operator or a negative sign 
     return smaller list with all identified negative signs incorporated with its associated value"""
-    #print('merge_negatives list',express_list)
     i=0
     negative_val=0.0
     while i<len(express_list)-1:
@@ -141,19 +134,15 @@ def parenth_list(express_list,parenth_l,parenth_r):
     """function that creates a slice of the expression between parentheses
     and performs all calculations between those parentheses before returning the
     expression with everything between the parentheses resolved"""
-    # print("Parenth input",express_list)
     #define new list as a slice of the original list with just the portion between parentheses
     parenth_slice = express_list[parenth_l:parenth_r+1]
-    # print("Parenth slice",parenth_slice)
     #perform operations on slice
     parenth_slice = exponent(parenth_slice)
     parenth_slice = multi_divide(parenth_slice)
     parenth_slice = add_subtract(parenth_slice)
-    # print('slice after operations',parenth_slice)
     # #remove parentheses and replace with calculated output 
     del express_list[parenth_l+1:parenth_r+1]
     express_list[parenth_l]=parenth_slice[1]
-    # print('full expression after parenth calc',express_list)
     return express_list
 
 def calculator_main(user_input):
@@ -163,7 +152,6 @@ def calculator_main(user_input):
     global error_out
     error_out=''
     output_list = re.findall(r'\d+\.?\d*|\d*\.?\d+|[()*/+-^]',user_input)
-    #print(f'list:{output_list} length of list: {len(output_list)}')
 
     #loop through list for further manipulation
     for i in range(0,len(output_list)):
@@ -177,7 +165,6 @@ def calculator_main(user_input):
     
     #convert all negative signs to negative numbers, leaving subtraction symbols
     output_list = merge_negatives(output_list,operator_set|{'(',')'}) 
-    #print(f'List after negatives are merged: {output_list}')
     #Error code checking before doing calculations
     #check for characters outside the scope of the calculator in user input
     for item in user_input:
@@ -189,10 +176,8 @@ def calculator_main(user_input):
     for i, item in enumerate(output_list):
         if i>0:
             prev_item = output_list[i-1]
-            #print(f"item: {item} prev_item:{prev_item}")
             if item in operator_set and prev_item in operator_set:
                 error_out='ERROR: Consecutive operators.'
-                #return error_out
     #check for equal brackets
     if output_list.count(')')!=output_list.count('('):
         error_out="ERROR: Unequal parenthesis."
@@ -206,7 +191,7 @@ def calculator_main(user_input):
         #find first right bracket and then its associated left bracket
         #perform calculation on the resulting slice 
         output_list_rev_slice=[]
-        pareth_index_r=0
+        parenth_index_r=0
         parenth_index_l=0
         while ')' in output_list:
             parenth_index_r = output_list.index(')')
@@ -221,16 +206,13 @@ def calculator_main(user_input):
                 output_list = parenth_list(output_list,parenth_index_l,parenth_index_r)
         output_list = add_subtract(multi_divide(exponent(output_list)))
         if len(output_list)==1:
-            #print("The answer is: ",float(output_list[0]))
             output_txt=output_clean_convert(output_list)
             return (output_txt, error_out)
         else:
-            #print("ERROR: The answer could not be fully calculated. Please review your input.")
-            #print(error_out)
             output_txt=output_clean_convert(output_list)
             return (output_txt, error_out)
     else:
-        output_txt=user_input#output_clean_convert(output_list)
+        output_txt=user_input
         return (output_txt, error_out)
     
 def output_clean_convert(output_list):
@@ -246,8 +228,6 @@ def output_clean_convert(output_list):
 if __name__ == "__main__": 
     user_input_calc = input('Provide the expression you wish to calculate:\nUsable operators are + , - , * , / , ^, ( , )\n--->')
     out,error=calculator_main(user_input_calc)
-    #print(out)
-    #print(error)
 
 
 # In[ ]:
