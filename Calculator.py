@@ -8,6 +8,7 @@
 #user input for expression as a string
 #parse out numbers and operators from the input into a list
 #perform calculations on the list using PEMDAS and return a single value 
+#to implement - multiple periods
 #to implement - after GUI, some sort of memory - maybe save to a text file to read back?
 
 #import regular expressions
@@ -151,7 +152,9 @@ def calculator_main(user_input):
     pull out all numbers, numbers with decimals, and "*","+","-","/","^","(",")" operators and put them in an ordered list'''
     global error_out
     error_out=''
-    output_list = re.findall(r'\d+\.?\d*|\d*\.?\d+|[()*/+-^]',user_input)
+    user_input_no_whitespace = re.sub(r'\s+', '', user_input)
+    output_list = re.findall(r'\d+\.?\d*|\d*\.?\d+|[()*/+-^]',user_input_no_whitespace)
+    print(output_list)
 
     #loop through list for further manipulation
     for i in range(0,len(output_list)):
@@ -159,6 +162,7 @@ def calculator_main(user_input):
         if re.search(r'\d+\.?\d*|\d*\.?\d+',output_list[i]):
             output_list[i]=float(output_list[i])
             
+    print(output_list)
     #sets of operators and all characters for error checking and handling negative numbers
     operator_set = {'*','/','+','-','^'}
     all_character_set = {'0','1','2','3','4','5','6','7','8','9',' ','(',')','.'}|operator_set
@@ -167,7 +171,7 @@ def calculator_main(user_input):
     output_list = merge_negatives(output_list,operator_set|{'(',')'}) 
     #Error code checking before doing calculations
     #check for characters outside the scope of the calculator in user input
-    for item in user_input:
+    for item in user_input_no_whitespace:
         #print(item)
         if isinstance(item,str) and item not in all_character_set:
             error_out='ERROR: Unexpected characters.'
@@ -178,6 +182,10 @@ def calculator_main(user_input):
             prev_item = output_list[i-1]
             if item in operator_set and prev_item in operator_set:
                 error_out='ERROR: Consecutive operators.'
+            elif item == '.':
+                error_out='ERROR: Excess decimal points.'
+            elif isinstance(item,float) and isinstance(prev_item,float):
+                error_out='ERROR: Consecutive unique numbers.'
     #check for equal brackets
     if output_list.count(')')!=output_list.count('('):
         error_out="ERROR: Unequal parenthesis."
@@ -209,7 +217,9 @@ def calculator_main(user_input):
             output_txt=output_clean_convert(output_list)
             return (output_txt, error_out)
         else:
-            output_txt=output_clean_convert(output_list)
+            output_txt=user_input
+            if error_out=='':
+                error_out = 'ERROR: Calculation incomplete.'
             return (output_txt, error_out)
     else:
         output_txt=user_input
