@@ -1,5 +1,7 @@
 import pytest
-from Calculator import calculator_main
+from Calculator import Calculator
+
+calculator = Calculator()
 
 @pytest.mark.parametrize("expression, expected", [
     # Basic operations
@@ -32,22 +34,23 @@ from Calculator import calculator_main
     ("0/5", ("0","")),
 
     #Error messages
-    ("3/0", ("3/0", "ERROR: Division by Zero.")),
-    ("2++3", ("2++3", "ERROR: Consecutive operators.")),
-    ("(2+3", ("(2+3", "ERROR: Unequal parenthesis.")),
-    ("2+abc3", ("2+abc3", 'ERROR: Unexpected characters.')),
-    ("--2--3", ("--2--3", "ERROR: Invalid operator at start or end.")),
-    (")2+3(", (")2+3(", "ERROR: Inproperly paired parenthesis.")),
-    ("8..3+5", ("8..3+5", "ERROR: Consecutive unique numbers.")),
-    ("8(3+5)", ("8(3+5)", "ERROR: Calculation incomplete.")),
-    ("8...3+5", ("8...3+5", "ERROR: Excess decimal points.")),
+    ("", ("", "Invalid: No expression")),
+    ("3/0", ("3/0", "Error: Division by zero")),
+    ("2++3", ("2++3", "Invalid: Consecutive operators")),
+    ("(2+3", ("(2+3", "Invalid: Unbalanced parentheses")),
+    ("2+5abc3", ("2+5abc3", 'Invalid: Unexpected characters')),
+    ("--2--3", ("--2--3", "Invalid: Operators at start/end")),
+    (")2+3(", (")2+3(", "Invalid: Improperly paired parenthesis")),
+    ("8..3+5", ("8..3+5", "Invalid: Consecutive numbers")),
+    ("8(3+5)", ("8(3+5)", "Error: Calculation incomplete")),
+    ("8...3+5", ("8...3+5", "Invalid: Excess decimal points")),
 ])
 def test_valid_expressions(expression, expected):
-    assert calculator_main(expression) == expected
+    assert calculator.calculate(expression) == expected
 
 def test_merge_negatives():
     # Test negative number handling
-    assert calculator_main("-5") == ("-5","")
-    assert calculator_main("3--2") == ("5","")
-    assert calculator_main("-3*-2") == ("6","")
-    assert calculator_main("5+-3") == ("2","")
+    assert calculator.calculate("-5") == ("-5","")
+    assert calculator.calculate("3--2") == ("5","")
+    assert calculator.calculate("-3*-2") == ("6","")
+    assert calculator.calculate("5+-3") == ("2","")

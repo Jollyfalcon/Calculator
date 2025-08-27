@@ -206,7 +206,7 @@ marimo/_static/
 marimo/_lsp/
 __marimo__/
 
-# text version of Calculator
+# text version of Calculator code
 Calculator.txt
 
 #ignore pycache
