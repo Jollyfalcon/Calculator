@@ -10,7 +10,7 @@ A comprehensive calculator application demonstrating advanced Python programming
 - Unit Testing (pytest)
 
 ## Project Objectives
-- Demonstrate Python syntax proficiency
+- Demonstrate Python syntax proficiency and OOP Python practices
 - Showcase GUI development skills
 - Implement comprehensive error handling
 - Provide robust unit testing
@@ -21,12 +21,13 @@ A comprehensive calculator application demonstrating advanced Python programming
     - Operators: Add (+), Subtract (-), Multiply (*), Divide (/), Exponent (^)
     - handles float and integer operations
 - Interactive GUI
+- Selection for decimal places to display
 - Error handling and display
     - Checks for correct Parenthesis pairing
     - Checks for unexpected character inputs
     - Checks for duplicate operators or decimals
     - Checks for divide by zero
-- Comprehensive unit tests in pytest
+- Comprehensive unit tests using pytest
 
 ## Prerequisites
 - Python 3.x
