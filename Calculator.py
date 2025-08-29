@@ -33,7 +33,7 @@ class CalculatorError:
         'DIVISION_BY_ZERO': 'Error: Division by zero',
         'CALCULATION_INCOMPLETE': 'Error: Calculation incomplete',
         'IMPROPER_PARENTHESIS': 'Invalid: Improperly paired parenthesis',
-        'CALCULATION_FAILED': 'Fatal Error: See print output'
+        'OVERFLOW': 'Error: Overflow due to large numbers',
     }
     @classmethod
     def get_error_message(cls, error_key: str) -> str:
@@ -285,8 +285,7 @@ class Calculator:
         """
         clean_output=[]
         # convert whole number float to int
-        # and floats with a large amount of decimals to 
-
+        # and applies maximium decimal places from GUI for display
         decimal_places_str='{'+f'{decimal_places}'+'}'
         for item in output_list:
             if isinstance(item,float):
@@ -351,6 +350,8 @@ class Calculator:
         
         except ZeroDivisionError:
             return user_input, CalculatorError.get_error_message('DIVISION_BY_ZERO')
+        except OverflowError:
+            return user_input, CalculatorError.get_error_message('OVERFLOW')
         # except Exception as ex:
         #     print(str(ex))
         #     return user_input, CalculatorError.get_error_message('CALCULATION_FAILED')

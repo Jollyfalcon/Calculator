@@ -100,6 +100,7 @@ def test_error_handling() -> None:
         ("8..3+5",4, ("8..3+5", "Invalid: Consecutive numbers")),
         ("8(3+5)",4, ("8(3+5)", "Error: Calculation incomplete")),
         ("8...3+5",4, ("8...3+5", "Invalid: Excess decimal points")),
+        ("9^999999",4, ("9^999999", "Error: Overflow due to large numbers"))
     ]
     
     for expression, decimal, expected in error_tests:

@@ -1,20 +1,47 @@
-#GUI for Calculator 
+#!/usr/bin/env python
+# coding: utf-8
+
+"""
+Calculator GUI Module
+
+This module provides a graphical user interface for the Calculator application.
+Features:
+- Interactive button-based input
+- Decimal place selection
+- Real-time calculation
+- Error handling
+
+Dependencies:
+- tkinter
+- Calculator module
+"""
+
 import tkinter as tk
 import Calculator as calc
 
+#Initialize calculator object
 calculator = calc.Calculator()
 
-def main():
+def main() -> None:
+    """
+    Create and initialize the calculator GUI application.
+    
+    Sets up the main window, input fields, buttons, 
+    and event handling for calculator interactions.
+    """
     # Create the main window
     root = tk.Tk()
     #root.geometry("300x400")
     root.title('Calculator')
+
     #variable for user entry field 
     entry_string=tk.StringVar()
+
     # Create Calculation Window
     entry_screen=tk.Entry(root,font=('Times New Roman',20),justify='right',relief='sunken',textvariable=entry_string) 
     entry_screen.grid(columnspan=4,row=0, padx = 5, pady = 5)
     entry_screen.focus() 
+
     # Create Decimal Place Drop-down
     decimal_text='Decimals to display:'
     decimal_label=tk.Label(root, text=decimal_text,font=('Times New Roman',12),height=1)
@@ -24,6 +51,7 @@ def main():
     decimal_value.set(4)
     decimal_dropdown = tk.OptionMenu(root, decimal_value, *decimal_place_options)
     decimal_dropdown.grid(columnspan = 1 ,row=1,column=3,padx=3,pady=3)
+
     # Create buttons 
     calculate_button='='
     clear_button='CLR'
@@ -71,6 +99,8 @@ def main():
             entry_screen.icursor(len(entry_string.get()))
         elif value==clear_button:
             entry_string.set('')
+            error_text.config(text='')
+
     #Function for key press 
     def on_key_press(event): 
         if event.keysym == "Return":
