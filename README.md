@@ -58,12 +58,12 @@ python Calculator.py
 pytest test_calculator.py
 
 ### Project Structure
-project-directory/
-│
-├── Calculator.py
-├── Calculator_GUI.py
-├── test_calculator.py
-├── requirements.txt
+project-directory/  
+│  
+├── Calculator.py  
+├── Calculator_GUI.py  
+├── test_calculator.py  
+├── requirements.txt  
 └── README.md
 
 ## Learning Outcomes
