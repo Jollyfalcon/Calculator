@@ -6,8 +6,8 @@ Calculator GUI Module
 
 This module provides a graphical user interface for the Calculator application.
 Features:
-- Interactive button-based input
-- Decimal place selection
+- Interactive button-based input or keyboard input through cursor
+- Decimal place display selection
 - Real-time calculation
 - Error handling
 
@@ -90,7 +90,11 @@ def main() -> None:
     def character_click(value):
         cursor_position=entry_screen.index(tk.INSERT)
         if value in character_input:
-            entry_string.set(entry_string.get()[:cursor_position]+value+entry_string.get()[cursor_position:])
+            entry_string.set(
+                entry_string.get()[:cursor_position]+
+                value+
+                entry_string.get()[cursor_position:]
+                )
             entry_screen.icursor(cursor_position+1)
         elif value==calculate_button:
             calc_output,calc_error=calculator.calculate(entry_string.get(),decimal_value.get())

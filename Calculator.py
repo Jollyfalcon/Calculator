@@ -4,16 +4,19 @@
 """
 Calculator Module
 
-This module provides a comprehensive calculator functionality with support for:
-- Basic arithmetic operations (+, -, *, /, ^)
-- Parenthetical expressions
-- Error handling
-- Parsing mathematical expressions using regular expressions
+This module provides comprehensive calculation functionality on complex mathematical
+expressions input as a string with support for:
+- Any number and combination of arithmetic operations (+, -, *, /, ^)
+- Complex parenthetical expressions
+- Error handling (Divide by Zero, Overflow, incorrect mathematical expression, etc.)
+
 
 Key Features:
 - Supports PEMDAS order of operations
-- Handles negative numbers
-- Comprehensive error checking
+- Parses mathematical expressions using regular expressions
+- Comprehensive error checking of inputs to ensure integrity of mathematical expression
+- allows control of number of decimal points to display in output
+- CLI interaction through this script and GUI interaction through accompanying "Calculator_GUI.py" script
 """
 
 import re
@@ -223,11 +226,7 @@ class Calculator:
                 first_val = float(express_list[i-1])
                 second_val = float(express_list[i+1])
                 #replace operator with combined number
-                # try:
                 express_list[i]=first_val/second_val
-                # except ZeroDivisionError:
-                #     error_out='ERROR: Division by Zero.'
-                #     break
             #if no operation happens, continue loop on the next index
             else:
                 i=i+1
@@ -352,9 +351,6 @@ class Calculator:
             return user_input, CalculatorError.get_error_message('DIVISION_BY_ZERO')
         except OverflowError:
             return user_input, CalculatorError.get_error_message('OVERFLOW')
-        # except Exception as ex:
-        #     print(str(ex))
-        #     return user_input, CalculatorError.get_error_message('CALCULATION_FAILED')
 
 if __name__ == "__main__": 
     user_input_calc = input('Provide the expression you wish to calculate:\nUsable operators are + , - , * , / , ^, ( , )\n--->')
