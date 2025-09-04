@@ -26,7 +26,7 @@ A comprehensive calculator application demonstrating advanced Python programming
     - Checks for correct Parenthesis pairing
     - Checks for unexpected character inputs
     - Checks for duplicate operators or decimals
-    - Checks for divide by zero
+    - Checks for divide by zero or overflow
 - Comprehensive unit tests using pytest
 
 ## Prerequisites
