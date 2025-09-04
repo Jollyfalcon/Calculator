@@ -67,11 +67,11 @@ project-directory/
 └── README.md
 
 ## Learning Outcomes
-Advanced Python programming
-GUI development with Tkinter
-Regular expression manipulation
-Comprehensive error handling
-Unit testing strategies
+Advanced Python programming  
+GUI development with Tkinter  
+Regular expression manipulation  
+Comprehensive error handling  
+Unit testing strategies  
 
 ## License
 MIT License
