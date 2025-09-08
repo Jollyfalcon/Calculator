@@ -37,7 +37,7 @@ A comprehensive calculator application demonstrating advanced Python programming
 ## Installation
 
 ### Clone the Repository
-git clone https://github.com/Jollyfalcon/Calculator
+git clone https://github.com/Jollyfalcon/Calculator  
 cd project-directory
 
 ### Set Up Virtual Environment
