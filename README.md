@@ -77,6 +77,6 @@ Unit testing strategies
 MIT License
 
 ## Contact
-Joshua Stuckey
-email: stuckeyjp1@gmail.com
+Joshua Stuckey  
+email: stuckeyjp1@gmail.com  
 LinkedIn: https://www.linkedin.com/in/joshua-stuckey/
