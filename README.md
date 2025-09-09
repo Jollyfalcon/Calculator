@@ -41,7 +41,7 @@ git clone https://github.com/Jollyfalcon/Calculator
 cd project-directory
 
 ### Set Up Virtual Environment
-python -m venv venv
+python -m venv venv  
 source venv/bin/activate  # On Windows use `venv\Scripts\activate`
 
 ### Install Dependencies
